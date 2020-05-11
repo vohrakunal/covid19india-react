@@ -17,27 +17,29 @@ import {
   parseDistrictZones,
 } from '../utils/commonfunctions';
 
-import Dropdown from '@primer/components/lib/Dropdown';
 import Breadcrumb from '@primer/components/lib/Breadcrumb';
-
+import Dropdown from '@primer/components/lib/Dropdown';
 import anime from 'animejs';
 import axios from 'axios';
 import {format, parse} from 'date-fns';
 import React, {useState} from 'react';
 import * as Icon from 'react-feather';
 import {Helmet} from 'react-helmet';
+import {useTranslation} from 'react-i18next';
 import {Link, useParams, Redirect} from 'react-router-dom';
 import {useMeasure, useEffectOnce} from 'react-use';
 
 function PureBreadcrumbs({stateName, stateCode, fetched, allStateData}) {
+  const {t} = useTranslation();
+
   return (
     <div className="breadcrumb">
       <Breadcrumb>
-        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+        <Breadcrumb.Item href="/">{t('Home')}</Breadcrumb.Item>
         <Dropdown direction="w">
           <summary>
             <Breadcrumb.Item href={`${stateCode}`} selected>
-              {stateName}
+              {t(stateName)}
             </Breadcrumb.Item>
             <Dropdown.Caret className="caret" />
           </summary>
@@ -46,7 +48,7 @@ function PureBreadcrumbs({stateName, stateCode, fetched, allStateData}) {
               {allStateData.map((state) => (
                 <Dropdown.Item key={state.statecode} className="item">
                   <Link to={`${state.statecode}`}>
-                    {STATE_CODES[state.statecode]}
+                    {t(STATE_CODES[state.statecode])}
                   </Link>
                 </Dropdown.Item>
               ))}
@@ -82,6 +84,8 @@ function State(props) {
   useEffectOnce(() => {
     getState(stateCode);
   });
+
+  const {t} = useTranslation();
 
   const getState = async (code) => {
     try {
@@ -199,7 +203,7 @@ function State(props) {
                 className="header-left fadeInUp"
                 style={{animationDelay: '0.3s'}}
               >
-                <h1>{stateName}</h1>
+                <h1>{t(stateName)}</h1>
                 <h5>
                   Last Updated on{' '}
                   {stateData && Object.keys(stateData[0]).length
@@ -212,7 +216,7 @@ function State(props) {
                 className="header-right fadeInUp"
                 style={{animationDelay: '0.5s'}}
               >
-                <h5>Tested</h5>
+                <h5>{t('Tested')}</h5>
                 <h2>{formatNumber(testObjLast?.totaltested)}</h2>
                 <h5 className="timestamp">
                   {!isNaN(
@@ -395,7 +399,7 @@ function State(props) {
                               return (
                                 <div key={index} className="district">
                                   <h2>{cases[mapOption]}</h2>
-                                  <h5>{district}</h5>
+                                  <h5>{t(district)}</h5>
                                   {mapOption !== 'active' && (
                                     <div className="delta">
                                       <Icon.ArrowUp className={mapOption} />

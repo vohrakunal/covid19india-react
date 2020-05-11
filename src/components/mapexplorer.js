@@ -336,11 +336,11 @@ function MapExplorer({
           {t(currentMap.name)} {t('Map')}
         </h1>
         <h6>
-          {window.innerWidth <= 769 ? t('Tap') : t('Hover')} over a{' '}
+          {window.innerWidth <= 769 ? 'Tap' : 'Hover'} over a{' '}
           {currentMapMeta.mapType === MAP_TYPES.COUNTRY
-            ? t('state/UT')
-            : t('district')}{' '}
-          {t('for more details')}
+            ? 'state/UT'
+            : 'district'}{' '}
+          for more details
         </h6>
       </div>
 

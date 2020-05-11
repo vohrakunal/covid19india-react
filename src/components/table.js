@@ -65,6 +65,7 @@ function Table({
     sortColumn: 'confirmed',
     isAscending: false,
   });
+
   const {t} = useTranslation();
 
   const [sortedStates, setSortedStates] = useState(
